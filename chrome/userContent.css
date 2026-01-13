@@ -1,0 +1,316 @@
+/* ==========================================================
+   userContent.css - E-Mail Nachrichten Körper Styling
+   Platziere diese Datei: <profile>/chrome/userContent.css
+   Diese Datei arbeitet zusammen mit userChrome.css
+   ========================================================== */
+
+/* Targeting aller Message-Viewing Kontexte */
+@-moz-document url-prefix("about:message"),
+               url-prefix("chrome://messenger/content/"),
+               url-prefix("imap://"),
+               url-prefix("mailbox://"),
+               url-prefix("about:blank") {
+  
+  /* Windows 95 Farben */
+  :root {
+    --w95-window: #ffffff;
+    --w95-black: #000000;
+    --w95-face: #d4d0c8;
+  }
+  
+  /* Erzwinge überall die richtigen Hintergrundfarben */
+  html,
+  body,
+  body *,
+  #messageContent,
+  .moz-text-html,
+  .moz-text-plain,
+  .moz-text-flowed {
+    background: var(--w95-window) !important;
+    background-color: var(--w95-window) !important;
+    color: var(--w95-black) !important;
+  }
+  
+  /* Entferne inline Styles die weißen Hintergrund erzwingen */
+  *[style*="background"] {
+    background-color: transparent !important;
+  }
+  
+  *[style*="background-color: white"],
+  *[style*="background-color:#fff"],
+  *[style*="background-color: #ffffff"],
+  *[style*="background: white"],
+  *[style*="background:#fff"],
+  *[style*="background: #ffffff"],
+  *[bgcolor="white"],
+  *[bgcolor="#ffffff"],
+  *[bgcolor="#fff"] {
+    background-color: transparent !important;
+    background: transparent !important;
+  }
+  
+  /* Tabellen erzwingen oft weißen Hintergrund */
+  table,
+  tbody,
+  thead,
+  tfoot,
+  tr,
+  td,
+  th {
+    background: transparent !important;
+    background-color: transparent !important;
+  }
+  
+  /* Divs und Container */
+  div,
+  span,
+  section,
+  article,
+  main,
+  header,
+  footer,
+  aside,
+  nav {
+    background-color: transparent !important;
+  }
+  
+  /* Links sollen sichtbar bleiben */
+  a,
+  a:link {
+    color: #0000ff !important;
+    text-decoration: underline !important;
+  }
+  
+  a:visited {
+    color: #800080 !important;
+  }
+  
+  a:hover {
+    color: #ff0000 !important;
+  }
+  
+  /* Textfarbe für Lesbarkeit */
+  p,
+  h1, h2, h3, h4, h5, h6,
+  li, ul, ol,
+  span,
+  div,
+  label,
+  strong,
+  em,
+  b,
+  i {
+    color: var(--w95-black) !important;
+  }
+  
+  /* Entferne Hintergrundbilder aus E-Mails */
+  * {
+    background-image: none !important;
+  }
+  
+  /* Code Blöcke */
+  pre,
+  code,
+  kbd,
+  samp,
+  tt {
+    background: #e0e0e0 !important;
+    color: var(--w95-black) !important;
+    border: 1px solid #808080 !important;
+    padding: 4px !important;
+    font-family: "Courier New", monospace !important;
+  }
+  
+  /* Blockquotes */
+  blockquote {
+    background: #f0f0f0 !important;
+    border-left: 3px solid #808080 !important;
+    padding-left: 8px !important;
+    margin-left: 8px !important;
+    color: var(--w95-black) !important;
+  }
+  
+  /* Zitierte Nachrichten (klassisch blau) */
+  .moz-cite-prefix,
+  blockquote[type="cite"] {
+    color: #000080 !important;
+    border-left: 2px solid #000080 !important;
+    padding-left: 6px !important;
+    margin-left: 4px !important;
+  }
+  
+  /* Horizontale Trennlinien */
+  hr {
+    border: none !important;
+    border-top: 1px solid #808080 !important;
+    height: 1px !important;
+    background: #808080 !important;
+  }
+  
+  /* Input-Felder in Nachrichten */
+  input,
+  textarea,
+  select {
+    background: var(--w95-window) !important;
+    color: var(--w95-black) !important;
+    border-top: 1px solid #000000 !important;
+    border-left: 1px solid #000000 !important;
+    border-bottom: 1px solid #ffffff !important;
+    border-right: 1px solid #ffffff !important;
+    padding: 2px !important;
+  }
+  
+  /* Buttons in Nachrichten */
+  button {
+    background: var(--w95-face) !important;
+    color: var(--w95-black) !important;
+    border-top: 1px solid #ffffff !important;
+    border-left: 1px solid #ffffff !important;
+    border-bottom: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
+    padding: 3px 8px !important;
+  }
+  
+  /* Listen */
+  ul,
+  ol {
+    padding-left: 20px !important;
+  }
+  
+  li {
+    margin: 2px 0 !important;
+  }
+  
+  /* Bilder */
+  img {
+    max-width: 100% !important;
+    height: auto !important;
+    border: none !important;
+  }
+  
+  /* Formular-Elemente */
+  form {
+    background: transparent !important;
+  }
+  
+  fieldset {
+    border: 1px solid #808080 !important;
+    padding: 8px !important;
+    margin: 4px 0 !important;
+  }
+  
+  legend {
+    background: var(--w95-face) !important;
+    padding: 0 4px !important;
+    color: var(--w95-black) !important;
+  }
+  
+  /* Signatur */
+  .moz-signature,
+  .signature {
+    color: #808080 !important;
+    border-top: 1px solid #c0c0c0 !important;
+    padding-top: 8px !important;
+    margin-top: 8px !important;
+  }
+  
+  /* Anlagen/Attachments */
+  .moz-attachments,
+  .attachment-list {
+    background: var(--w95-face) !important;
+    border: 1px solid #808080 !important;
+    padding: 4px !important;
+    margin: 8px 0 !important;
+  }
+  
+  /* Headers in E-Mail Bodies */
+  .moz-email-headers-table {
+    background: var(--w95-face) !important;
+    border: 1px solid #808080 !important;
+    margin-bottom: 8px !important;
+  }
+  
+  /* Dark E-Mails (Newsletter etc.) überschreiben */
+  *[style*="background-color: black"],
+  *[style*="background-color:#000"],
+  *[style*="background: black"],
+  *[bgcolor="black"],
+  *[bgcolor="#000000"] {
+    background-color: var(--w95-window) !important;
+    background: var(--w95-window) !important;
+    color: var(--w95-black) !important;
+  }
+  
+  /* Text in dunklen Bereichen lesbar machen */
+  *[style*="color: white"],
+  *[style*="color:#fff"],
+  *[style*="color: #ffffff"],
+  *[color="white"],
+  *[color="#ffffff"] {
+    color: var(--w95-black) !important;
+  }
+}
+
+/* ========================================================== 
+   Spezielle Fixes für Common E-Mail Frameworks
+   ========================================================== */
+
+/* Gmail/Google Workspace E-Mails */
+@-moz-document url-prefix("about:message") {
+  .gmail_quote,
+  .gmail_attr {
+    background: transparent !important;
+    border-left: 2px solid #808080 !important;
+    padding-left: 6px !important;
+  }
+  
+  /* Gmail Buttons */
+  .gmail_button {
+    background: #d4d0c8 !important;
+    border-top: 1px solid #ffffff !important;
+    border-left: 1px solid #ffffff !important;
+    border-bottom: 1px solid #000000 !important;
+    border-right: 1px solid #000000 !important;
+  }
+}
+
+/* Outlook/Office365 E-Mails */
+@-moz-document url-prefix("about:message") {
+  .OutlookMessageHeader,
+  .MsoNormal {
+    background: transparent !important;
+  }
+  
+  .WordSection1,
+  .WordSection2 {
+    background: var(--w95-window) !important;
+  }
+}
+
+/* Thunderbird eigene E-Mail Compose Styles */
+@-moz-document url("chrome://messenger/content/messengercompose/messengercompose.xhtml") {
+  body,
+  #content-frame {
+    background: var(--w95-window) !important;
+    color: var(--w95-black) !important;
+  }
+  
+  /* Editor Body */
+  body.moz-editor {
+    background: var(--w95-window) !important;
+  }
+}
+
+/* ========================================================== 
+   Debug Hilfe (auskommentiert - zum Testen aktivieren)
+   ========================================================== */
+
+/*
+@-moz-document url-prefix("about:message") {
+  * {
+    outline: 0.5px dashed rgba(255, 0, 0, 0.1) !important;
+  }
+}
+*/
+
+/* ========================================================== */

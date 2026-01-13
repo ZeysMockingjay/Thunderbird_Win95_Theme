@@ -1,0 +1,957 @@
+/* ==========================================================
+   Thunderbird — Win95 Theme (Komplett - Warm Beige + Türkis)
+   Installation:
+   - Platziere als: <profile>/chrome/userChrome.css
+   - Aktiviere: toolkit.legacyUserProfileCustomizations.stylesheets = true
+   - Thunderbird komplett neu starten
+   ========================================================== */
+
+/* -----------------------------
+   Font Face
+   ----------------------------- */
+@font-face {
+  font-family: "W95";
+  src: url("fonts/W95FA.otf") format("opentype");
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+/* Global Font */
+* {
+  font-family: "W95", "MS Sans Serif", "Tahoma", sans-serif !important;
+  font-size: 11px !important;
+  -moz-font-smoothing: none !important;
+}
+
+/* -----------------------------
+   Farb-System - Warm Beige + Türkis
+   ----------------------------- */
+:root {
+  --w95-face:      #d4d0c8 !important; /* warm beige */
+  --w95-face-dark: #bfbbb3 !important; /* darker beige */
+  --w95-light:     #ffffff !important;
+  --w95-shadow:    #808080 !important;
+  --w95-dkshadow:  #000000 !important;
+  --w95-black:     #000000 !important;
+  --w95-hilite:    #008080 !important; /* türkis selection */
+  --w95-hilitext:  #ffffff !important;
+  --w95-graytext:  #808080 !important;
+  --w95-window:    #ffffff !important;
+  --w95-desktop:   #008080 !important; /* türkis */
+  --w95-teal-light:#1ca7a7 !important; /* heller türkis */
+}
+
+/* Entferne alle modernen Effekte */
+* {
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background-image: none !important;
+  transition: none !important;
+  animation: none !important;
+}
+
+/* -----------------------------
+   Haupt-Fenster
+   ----------------------------- */
+#messengerWindow,
+#messengerWindow > *,
+#mailContent,
+#messengerBody,
+body,
+html {
+  background: var(--w95-face) !important;
+  background-color: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Title Bar - Türkis Gradient
+   ----------------------------- */
+.titlebar-buttonbox-container,
+.titlebar-buttonbox {
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Window Control Buttons */
+.titlebar-button,
+.titlebar-min,
+.titlebar-max,
+.titlebar-restore,
+.titlebar-close {
+  -moz-appearance: none !important;
+  appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  width: 16px !important;
+  height: 14px !important;
+  min-width: 16px !important;
+  min-height: 14px !important;
+  margin: 2px 1px !important;
+  padding: 0 !important;
+  font-family: "Courier New", monospace !important;
+  font-size: 10px !important;
+  font-weight: bold !important;
+  line-height: 13px !important;
+  text-align: center !important;
+}
+
+/* Unicode Symbole */
+.titlebar-min::before { content: "−" !important; display: block !important; }
+.titlebar-max::before { content: "□" !important; display: block !important; }
+.titlebar-restore::before { content: "❐" !important; display: block !important; }
+.titlebar-close::before { content: "×" !important; display: block !important; font-size: 13px !important; }
+
+.titlebar-button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+.titlebar-button:active {
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+}
+
+/* Title Bar - Türkis Gradient */
+.titlebar,
+#titlebar,
+#titlebar-content,
+#messengerWindow[tabsintitlebar] #titlebar {
+  background: linear-gradient(90deg, var(--w95-desktop), var(--w95-teal-light)) !important;
+  color: white !important;
+  min-height: 18px !important;
+  padding: 1px 2px !important;
+  border: none !important;
+}
+
+.titlebar-title {
+  color: white !important;
+  font-weight: bold !important;
+  font-size: 11px !important;
+}
+
+/* -----------------------------
+   Menu Bar
+   ----------------------------- */
+#toolbar-menubar,
+menubar,
+#mail-menubar {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border: none !important;
+  padding: 1px !important;
+  min-height: 20px !important;
+}
+
+menu,
+menuitem {
+  background: transparent !important;
+  color: var(--w95-black) !important;
+  padding: 2px 16px 2px 4px !important;
+  margin: 0 !important;
+}
+
+menu:hover,
+menuitem:hover,
+menu[_moz-menuactive="true"],
+menuitem[_moz-menuactive="true"] {
+  background: var(--w95-hilite) !important;
+  color: var(--w95-hilitext) !important;
+}
+
+menupopup {
+  background: var(--w95-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 2px !important;
+}
+
+menuseparator {
+  background: var(--w95-shadow) !important;
+  height: 1px !important;
+  margin: 2px 0 !important;
+  border: none !important;
+}
+
+/* -----------------------------
+   Toolbars
+   ----------------------------- */
+toolbar,
+#mail-toolbox,
+#mail-bar3,
+.toolbar,
+#navigation-toolbox,
+#compose-toolbox {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border: none !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  min-height: 26px !important;
+  padding: 2px !important;
+}
+
+/* Toolbar Buttons */
+toolbarbutton,
+.toolbarbutton-1,
+#button-getmail,
+#button-newmsg,
+#button-reply,
+#button-replyall,
+#button-forward,
+#button-delete,
+#button-junk,
+#button-print,
+#button-stop {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 2px 4px !important;
+  margin: 1px !important;
+  min-height: 20px !important;
+}
+
+toolbarbutton:hover,
+.toolbarbutton-1:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+toolbarbutton:active,
+.toolbarbutton-1:active,
+toolbarbutton[checked="true"],
+.toolbarbutton-1[checked="true"],
+toolbarbutton[open="true"],
+.toolbarbutton-1[open="true"] {
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 3px 3px 1px 5px !important;
+}
+
+/* Toolbar Icons */
+.toolbarbutton-icon {
+  width: 16px !important;
+  height: 16px !important;
+  margin: 0 !important;
+}
+
+/* -----------------------------
+   Tabs
+   ----------------------------- */
+.tabmail-tabs,
+#tabmail-tabs,
+.tab-background-start,
+.tab-background-end,
+.tab-background-middle {
+  background: var(--w95-face) !important;
+  border: none !important;
+  padding: 0 !important;
+  min-height: 24px !important;
+}
+
+.tabmail-tab,
+tab,
+.tabbrowser-tab {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 3px 8px !important;
+  margin: 2px 1px -1px 0 !important;
+}
+
+.tabmail-tab[selected="true"],
+tab[selected="true"],
+.tabbrowser-tab[selected="true"] {
+  background: var(--w95-face) !important;
+  border-bottom: 1px solid var(--w95-face) !important;
+  margin-bottom: 0 !important;
+  padding-bottom: 4px !important;
+  z-index: 10 !important;
+}
+
+.tab-label,
+.tab-text {
+  color: var(--w95-black) !important;
+  font-weight: normal !important;
+}
+
+.tab-close-button {
+  appearance: none !important;
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  border: 1px solid var(--w95-black) !important;
+  width: 13px !important;
+  height: 13px !important;
+  min-width: 13px !important;
+  min-height: 13px !important;
+  padding: 0 !important;
+  margin-left: 4px !important;
+  font-size: 9px !important;
+  line-height: 11px !important;
+  text-align: center !important;
+}
+
+.tab-close-button::before {
+  content: "×" !important;
+  display: block !important;
+  color: var(--w95-black) !important;
+}
+
+.tab-close-button:hover {
+  background: var(--w95-shadow) !important;
+}
+
+/* -----------------------------
+   Linke Sidebar / Folder Pane
+   ----------------------------- */
+#folderPaneBox,
+#folderPane,
+#folderTree,
+.tree-container {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+}
+
+/* Folder Pane Header */
+#folderPaneHeader,
+#folderPaneHeaderBar {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  padding: 2px 4px !important;
+}
+
+/* Folder Pane Button */
+#folderPaneHeaderButton,
+#folderPaneMore {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 2px 6px !important;
+  margin: 0 2px !important;
+}
+
+/* Tree Rows */
+treechildren::-moz-tree-row {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border: none !important;
+  height: 17px !important;
+}
+
+treechildren::-moz-tree-row(selected) {
+  background: var(--w95-hilite) !important;
+}
+
+treechildren::-moz-tree-row(hover) {
+  background: var(--w95-face-dark) !important;
+}
+
+treechildren::-moz-tree-cell-text {
+  color: var(--w95-black) !important;
+  padding-left: 2px !important;
+}
+
+treechildren::-moz-tree-cell-text(selected) {
+  color: var(--w95-hilitext) !important;
+}
+
+/* Tree Icons */
+treechildren::-moz-tree-image {
+  width: 16px !important;
+  height: 16px !important;
+  margin-right: 2px !important;
+}
+
+/* Tree Indentation */
+treechildren::-moz-tree-indentation {
+  width: 12px !important;
+}
+
+/* Tree Twisty (Expand/Collapse) */
+treechildren::-moz-tree-twisty {
+  width: 12px !important;
+  padding-right: 2px !important;
+}
+
+/* Tree Column Headers */
+treecol,
+.treecol-sortdirection {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-shadow) !important;
+  padding: 3px 4px !important;
+  margin: 0 !important;
+}
+
+treecol:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+/* Tree Column Separator */
+treecol splitter,
+treecol separator {
+  background: var(--w95-shadow) !important;
+  width: 1px !important;
+}
+
+/* -----------------------------
+   Thread Pane (Message List)
+   ----------------------------- */
+#threadTree,
+#threadPane {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+}
+
+#threadTree treechildren::-moz-tree-row {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  height: 17px !important;
+}
+
+#threadTree treechildren::-moz-tree-row(selected) {
+  background: var(--w95-hilite) !important;
+}
+
+#threadTree treechildren::-moz-tree-row(unread) {
+  font-weight: bold !important;
+}
+
+#threadTree treechildren::-moz-tree-cell-text {
+  color: var(--w95-black) !important;
+}
+
+#threadTree treechildren::-moz-tree-cell-text(selected) {
+  color: var(--w95-hilitext) !important;
+}
+
+#threadTree treechildren::-moz-tree-cell-text(unread) {
+  font-weight: bold !important;
+}
+
+/* -----------------------------
+   Message Pane
+   ----------------------------- */
+#messagepane,
+#messagePane,
+#messagepanebox,
+.message-container,
+browser[type="content"] {
+  background: var(--w95-window) !important;
+  background-color: var(--w95-window) !important;
+}
+
+/* Message Header */
+#msgHeaderView,
+#expandedHeaderView,
+.message-header {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  padding: 4px !important;
+}
+
+/* Message Header Buttons */
+#msgHeaderView button,
+#expandedHeaderView button {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 2px 6px !important;
+  margin: 1px !important;
+}
+
+/* -----------------------------
+   Splitters
+   ----------------------------- */
+splitter,
+#folderpane_splitter,
+#threadpane-splitter,
+#messagepane-splitter {
+  background: var(--w95-face) !important;
+  border: 1px outset var(--w95-face) !important;
+  min-width: 5px !important;
+  min-height: 5px !important;
+  cursor: ew-resize !important;
+}
+
+splitter[orient="horizontal"] {
+  cursor: ns-resize !important;
+}
+
+/* Splitter Grippy */
+grippy {
+  background: var(--w95-face) !important;
+}
+
+/* -----------------------------
+   Compose Window
+   ----------------------------- */
+#compose-toolbox,
+#MsgHeadersToolbar,
+#FormatToolbar {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+}
+
+#addresses-box,
+#identityLabel,
+#msgIdentity,
+#msgSubject {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+}
+
+/* Compose Editor */
+#content-frame,
+#messageEditor,
+#appcontent {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+}
+
+/* Address Book Window */
+#addressbookWindow,
+#abResultsTree {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Inputs & Text Fields
+   ----------------------------- */
+input,
+textarea,
+textbox,
+html|input,
+html|textarea,
+.textbox-input {
+  -moz-appearance: none !important;
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 2px 3px !important;
+  font-size: 11px !important;
+}
+
+input:focus,
+textarea:focus,
+textbox:focus {
+  outline: 1px dotted var(--w95-black) !important;
+  outline-offset: -2px !important;
+}
+
+/* -----------------------------
+   Buttons
+   ----------------------------- */
+button,
+html|button,
+.button {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 3px 10px !important;
+  min-height: 21px !important;
+  font-size: 11px !important;
+}
+
+button:hover,
+html|button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+button:active,
+html|button:active,
+button[default="true"],
+button[type="submit"] {
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 4px 9px 2px 11px !important;
+}
+
+/* Default Button */
+button[default="true"]::before {
+  content: "" !important;
+  position: absolute !important;
+  top: -3px !important;
+  left: -3px !important;
+  right: -3px !important;
+  bottom: -3px !important;
+  border: 1px dotted var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Checkboxes & Radio Buttons
+   ----------------------------- */
+checkbox,
+radio {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  margin: 2px !important;
+  padding: 1px !important;
+}
+
+checkbox > .checkbox-check,
+radio > .radio-check {
+  -moz-appearance: none !important;
+  background: var(--w95-window) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  width: 13px !important;
+  height: 13px !important;
+}
+
+checkbox[checked="true"] > .checkbox-check::before {
+  content: "✓" !important;
+  color: var(--w95-black) !important;
+  font-size: 12px !important;
+  font-weight: bold !important;
+}
+
+radio[selected="true"] > .radio-check {
+  background: var(--w95-black) !important;
+  border: 3px solid var(--w95-window) !important;
+}
+
+/* -----------------------------
+   Dropdown/Select
+   ----------------------------- */
+select,
+menulist,
+.menulist-dropmarker {
+  -moz-appearance: none !important;
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 2px 18px 2px 3px !important;
+}
+
+/* Dropdown Arrow Button */
+.menulist-dropmarker {
+  background: var(--w95-face) !important;
+  border-left: 1px solid var(--w95-shadow) !important;
+  padding: 0 4px !important;
+}
+
+/* -----------------------------
+   Scrollbars
+   ----------------------------- */
+scrollbar {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+}
+
+scrollbar[orient="vertical"] {
+  width: 16px !important;
+}
+
+scrollbar[orient="horizontal"] {
+  height: 16px !important;
+}
+
+thumb {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+}
+
+scrollbarbutton {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  width: 16px !important;
+  height: 16px !important;
+}
+
+scrollbarbutton:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+/* Scrollbar Arrows */
+scrollbarbutton[type="increment"][orient="vertical"]::before {
+  content: "▼" !important;
+  font-size: 8px !important;
+}
+
+scrollbarbutton[type="decrement"][orient="vertical"]::before {
+  content: "▲" !important;
+  font-size: 8px !important;
+}
+
+scrollbarbutton[type="increment"][orient="horizontal"]::before {
+  content: "▶" !important;
+  font-size: 8px !important;
+}
+
+scrollbarbutton[type="decrement"][orient="horizontal"]::before {
+  content: "◀" !important;
+  font-size: 8px !important;
+}
+
+/* -----------------------------
+   Status Bar
+   ----------------------------- */
+#status-bar,
+statusbar,
+.statusbar {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-shadow) !important;
+  min-height: 18px !important;
+  padding: 2px 4px !important;
+}
+
+statusbarpanel {
+  background: var(--w95-face) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 2px 6px !important;
+  margin: 0 2px !important;
+}
+
+/* -----------------------------
+   Search Bar
+   ----------------------------- */
+#searchInput,
+.search-box,
+#quick-filter-bar,
+#qfb-show-filter-bar {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  padding: 2px 4px !important;
+}
+
+/* Quick Filter Bar */
+#quick-filter-bar {
+  background: var(--w95-face) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  padding: 4px !important;
+}
+
+/* -----------------------------
+   Dialog Boxes & Popups
+   ----------------------------- */
+dialog,
+.dialog,
+window[type="dialog"] {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+}
+
+/* Dialog Buttons */
+.dialog-button-box,
+.dialog-button-box > button {
+  background: var(--w95-face) !important;
+}
+
+/* -----------------------------
+   Context Menus
+   ----------------------------- */
+menupopup,
+panel,
+.panel-arrowcontent {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+}
+
+/* Panel Arrow */
+.panel-arrowbox {
+  display: none !important;
+}
+
+/* -----------------------------
+   Tooltips
+   ----------------------------- */
+tooltip {
+  -moz-appearance: none !important;
+  background: #ffffe1 !important; /* classic light yellow */
+  color: var(--w95-black) !important;
+  border: 1px solid var(--w95-black) !important;
+  padding: 3px 6px !important;
+  font-size: 11px !important;
+}
+
+/* -----------------------------
+   Notifications & Alerts
+   ----------------------------- */
+notification,
+.notification-box,
+.messageCloseButton {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border: 1px solid var(--w95-shadow) !important;
+}
+
+/* -----------------------------
+   Progress Bars
+   ----------------------------- */
+progressmeter,
+.progress-bar {
+  -moz-appearance: none !important;
+  background: var(--w95-window) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+  height: 16px !important;
+}
+
+.progress-bar > .progress-remainder {
+  background: var(--w95-hilite) !important;
+}
+
+/* -----------------------------
+   Disabled State
+   ----------------------------- */
+*[disabled="true"],
+*[disabled] {
+  color: var(--w95-graytext) !important;
+  text-shadow: 1px 1px 0 var(--w95-light) !important;
+}
+
+/* -----------------------------
+   Preferences Window
+   ----------------------------- */
+#preferencesContainer,
+.pane-container,
+prefpane {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+/* Category List */
+#categories {
+  background: var(--w95-window) !important;
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
+}
+
+/* Group Boxes */
+groupbox,
+.groupbox {
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
+  padding: 6px !important;
+  margin: 4px !important;
+}
+
+caption,
+.groupbox-caption {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  padding: 0 4px !important;
+  margin: -10px 6px 0 6px !important;
+}
+
+/* -----------------------------
+   Remove Unwanted Modern Elements
+   ----------------------------- */
+.sidebar-splitter,
+#folderPaneSplitter,
+#threadpane-splitter {
+  -moz-appearance: none !important;
+}
+
+/* Remove backgrounds */
+vbox,
+hbox,
+box,
+deck,
+stack {
+  background: transparent !important;
+}
+
+/* Force content areas */
+#mail3PaneTab browser,
+#mail3PaneTab > *,
+.contentTabInstance {
+  background: var(--w95-face) !important;
+}
+
+/* Remove focus rings on non-inputs */
+:focus:not(input):not(textarea):not(textbox) {
+  outline: none !important;
+}
+
+/* ========================================================== */
