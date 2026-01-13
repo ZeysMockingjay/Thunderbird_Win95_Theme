@@ -10,14 +10,24 @@
                url-prefix("imap://"),
                url-prefix("mailbox://"),
                url-prefix("about:blank") {
-  
+
+  /* Font für bessere Lesbarkeit */
+  * {
+    font-family: "W95", "MS Sans Serif", "Tahoma", sans-serif !important;
+    font-size: 12px !important;
+    -moz-font-smoothing: none !important;
+    -webkit-font-smoothing: none !important;
+  }
+
   /* Windows 95 Farben */
   :root {
     --w95-window: #ffffff;
     --w95-black: #000000;
     --w95-face: #d4d0c8;
+    --w95-hilite: #008080;
+    --w95-btn-face: #c0c0c0;
   }
-  
+
   /* Erzwinge überall die richtigen Hintergrundfarben */
   html,
   body,
@@ -30,12 +40,12 @@
     background-color: var(--w95-window) !important;
     color: var(--w95-black) !important;
   }
-  
+
   /* Entferne inline Styles die weißen Hintergrund erzwingen */
   *[style*="background"] {
     background-color: transparent !important;
   }
-  
+
   *[style*="background-color: white"],
   *[style*="background-color:#fff"],
   *[style*="background-color: #ffffff"],
@@ -48,7 +58,7 @@
     background-color: transparent !important;
     background: transparent !important;
   }
-  
+
   /* Tabellen erzwingen oft weißen Hintergrund */
   table,
   tbody,
@@ -59,8 +69,9 @@
   th {
     background: transparent !important;
     background-color: transparent !important;
+    font-size: 12px !important;
   }
-  
+
   /* Divs und Container */
   div,
   span,
@@ -73,22 +84,23 @@
   nav {
     background-color: transparent !important;
   }
-  
+
   /* Links sollen sichtbar bleiben */
   a,
   a:link {
     color: #0000ff !important;
     text-decoration: underline !important;
+    font-size: 12px !important;
   }
-  
+
   a:visited {
     color: #800080 !important;
   }
-  
+
   a:hover {
     color: #ff0000 !important;
   }
-  
+
   /* Textfarbe für Lesbarkeit */
   p,
   h1, h2, h3, h4, h5, h6,
@@ -102,12 +114,18 @@
   i {
     color: var(--w95-black) !important;
   }
-  
+
+  /* Headlines größer und lesbar */
+  h1 { font-size: 18px !important; font-weight: bold !important; }
+  h2 { font-size: 16px !important; font-weight: bold !important; }
+  h3 { font-size: 14px !important; font-weight: bold !important; }
+  h4, h5, h6 { font-size: 13px !important; font-weight: bold !important; }
+
   /* Entferne Hintergrundbilder aus E-Mails */
   * {
     background-image: none !important;
   }
-  
+
   /* Code Blöcke */
   pre,
   code,
@@ -119,8 +137,9 @@
     border: 1px solid #808080 !important;
     padding: 4px !important;
     font-family: "Courier New", monospace !important;
+    font-size: 11px !important;
   }
-  
+
   /* Blockquotes */
   blockquote {
     background: #f0f0f0 !important;
@@ -128,8 +147,9 @@
     padding-left: 8px !important;
     margin-left: 8px !important;
     color: var(--w95-black) !important;
+    font-size: 12px !important;
   }
-  
+
   /* Zitierte Nachrichten (klassisch blau) */
   .moz-cite-prefix,
   blockquote[type="cite"] {
@@ -137,8 +157,9 @@
     border-left: 2px solid #000080 !important;
     padding-left: 6px !important;
     margin-left: 4px !important;
+    font-size: 12px !important;
   }
-  
+
   /* Horizontale Trennlinien */
   hr {
     border: none !important;
@@ -146,112 +167,155 @@
     height: 1px !important;
     background: #808080 !important;
   }
-  
+
   /* Input-Felder in Nachrichten */
   input,
   textarea,
   select {
     background: var(--w95-window) !important;
     color: var(--w95-black) !important;
-    border-top: 1px solid #000000 !important;
-    border-left: 1px solid #000000 !important;
-    border-bottom: 1px solid #ffffff !important;
-    border-right: 1px solid #ffffff !important;
-    padding: 2px !important;
+    border-top: 2px solid #000000 !important;
+    border-left: 2px solid #000000 !important;
+    border-bottom: 2px solid #ffffff !important;
+    border-right: 2px solid #ffffff !important;
+    padding: 3px !important;
+    font-size: 12px !important;
   }
-  
+
   /* Buttons in Nachrichten */
   button {
-    background: var(--w95-face) !important;
+    background: var(--w95-btn-face) !important;
     color: var(--w95-black) !important;
-    border-top: 1px solid #ffffff !important;
-    border-left: 1px solid #ffffff !important;
-    border-bottom: 1px solid #000000 !important;
-    border-right: 1px solid #000000 !important;
-    padding: 3px 8px !important;
+    border-top: 2px solid #ffffff !important;
+    border-left: 2px solid #ffffff !important;
+    border-bottom: 2px solid #000000 !important;
+    border-right: 2px solid #000000 !important;
+    padding: 4px 10px !important;
+    font-size: 12px !important;
   }
-  
+
+  button:hover {
+    background: #bfbbb3 !important;
+  }
+
+  button:active {
+    border-top: 2px solid #000000 !important;
+    border-left: 2px solid #000000 !important;
+    border-bottom: 2px solid #ffffff !important;
+    border-right: 2px solid #ffffff !important;
+  }
+
   /* Listen */
   ul,
   ol {
-    padding-left: 20px !important;
+    padding-left: 24px !important;
   }
-  
+
   li {
-    margin: 2px 0 !important;
+    margin: 3px 0 !important;
+    font-size: 12px !important;
   }
-  
+
   /* Bilder */
   img {
     max-width: 100% !important;
     height: auto !important;
     border: none !important;
   }
-  
+
   /* Formular-Elemente */
   form {
     background: transparent !important;
   }
-  
+
   fieldset {
-    border: 1px solid #808080 !important;
-    padding: 8px !important;
-    margin: 4px 0 !important;
+    border: 2px solid #808080 !important;
+    padding: 10px !important;
+    margin: 6px 0 !important;
+    background: var(--w95-face) !important;
   }
-  
+
   legend {
     background: var(--w95-face) !important;
-    padding: 0 4px !important;
+    padding: 0 6px !important;
     color: var(--w95-black) !important;
+    font-size: 12px !important;
+    font-weight: bold !important;
   }
-  
+
   /* Signatur */
   .moz-signature,
   .signature {
-    color: #808080 !important;
-    border-top: 1px solid #c0c0c0 !important;
-    padding-top: 8px !important;
-    margin-top: 8px !important;
+    color: #606060 !important;
+    border-top: 2px solid #c0c0c0 !important;
+    padding-top: 10px !important;
+    margin-top: 10px !important;
+    font-size: 11px !important;
   }
-  
+
   /* Anlagen/Attachments */
   .moz-attachments,
   .attachment-list {
     background: var(--w95-face) !important;
-    border: 1px solid #808080 !important;
-    padding: 4px !important;
-    margin: 8px 0 !important;
+    border: 2px solid #808080 !important;
+    padding: 6px !important;
+    margin: 10px 0 !important;
   }
-  
+
   /* Headers in E-Mail Bodies */
   .moz-email-headers-table {
     background: var(--w95-face) !important;
-    border: 1px solid #808080 !important;
-    margin-bottom: 8px !important;
+    border: 2px solid #808080 !important;
+    margin-bottom: 10px !important;
+    font-size: 12px !important;
   }
-  
+
   /* Dark E-Mails (Newsletter etc.) überschreiben */
   *[style*="background-color: black"],
   *[style*="background-color:#000"],
   *[style*="background: black"],
   *[bgcolor="black"],
-  *[bgcolor="#000000"] {
+  *[bgcolor="#000000"],
+  *[style*="background-color: rgb(0, 0, 0)"],
+  *[style*="background: rgb(0, 0, 0)"] {
     background-color: var(--w95-window) !important;
     background: var(--w95-window) !important;
     color: var(--w95-black) !important;
   }
-  
+
   /* Text in dunklen Bereichen lesbar machen */
   *[style*="color: white"],
   *[style*="color:#fff"],
   *[style*="color: #ffffff"],
   *[color="white"],
-  *[color="#ffffff"] {
+  *[color="#ffffff"],
+  *[style*="color: rgb(255, 255, 255)"] {
+    color: var(--w95-black) !important;
+  }
+
+  /* Sehr dunkle Hintergründe zu weiß konvertieren */
+  *[style*="background-color: #000"],
+  *[style*="background-color: #111"],
+  *[style*="background-color: #222"],
+  *[style*="background-color: #333"],
+  *[style*="background: #000"],
+  *[style*="background: #111"],
+  *[style*="background: #222"],
+  *[style*="background: #333"] {
+    background-color: var(--w95-window) !important;
+    background: var(--w95-window) !important;
+  }
+
+  /* Sehr helle Texte zu schwarz konvertieren */
+  *[style*="color: #fff"],
+  *[style*="color: #eee"],
+  *[style*="color: #ddd"],
+  *[style*="color: #ccc"] {
     color: var(--w95-black) !important;
   }
 }
 
-/* ========================================================== 
+/* ==========================================================
    Spezielle Fixes für Common E-Mail Frameworks
    ========================================================== */
 
@@ -261,16 +325,24 @@
   .gmail_attr {
     background: transparent !important;
     border-left: 2px solid #808080 !important;
-    padding-left: 6px !important;
+    padding-left: 8px !important;
+    font-size: 12px !important;
   }
-  
+
   /* Gmail Buttons */
-  .gmail_button {
+  .gmail_button,
+  .gmail_default {
     background: #d4d0c8 !important;
-    border-top: 1px solid #ffffff !important;
-    border-left: 1px solid #ffffff !important;
-    border-bottom: 1px solid #000000 !important;
-    border-right: 1px solid #000000 !important;
+    border-top: 2px solid #ffffff !important;
+    border-left: 2px solid #ffffff !important;
+    border-bottom: 2px solid #000000 !important;
+    border-right: 2px solid #000000 !important;
+    padding: 4px 10px !important;
+    font-size: 12px !important;
+  }
+
+  .gmail_button:hover {
+    background: #bfbbb3 !important;
   }
 }
 
@@ -279,11 +351,34 @@
   .OutlookMessageHeader,
   .MsoNormal {
     background: transparent !important;
+    font-size: 12px !important;
   }
-  
+
   .WordSection1,
   .WordSection2 {
     background: var(--w95-window) !important;
+  }
+
+  /* Outlook Tables */
+  table.MsoNormalTable {
+    background: transparent !important;
+  }
+
+  /* Outlook Paragraphs */
+  p.MsoNormal {
+    background: transparent !important;
+    margin: 6px 0 !important;
+    font-size: 12px !important;
+  }
+}
+
+/* Apple Mail */
+@-moz-document url-prefix("about:message") {
+  .AppleMailSignature {
+    color: #606060 !important;
+    border-top: 2px solid #c0c0c0 !important;
+    padding-top: 10px !important;
+    font-size: 11px !important;
   }
 }
 
@@ -293,24 +388,56 @@
   #content-frame {
     background: var(--w95-window) !important;
     color: var(--w95-black) !important;
+    font-size: 12px !important;
   }
-  
+
   /* Editor Body */
   body.moz-editor {
     background: var(--w95-window) !important;
   }
 }
 
-/* ========================================================== 
-   Debug Hilfe (auskommentiert - zum Testen aktivieren)
-   ========================================================== */
-
-/*
+/* Newsletter-spezifische Fixes */
 @-moz-document url-prefix("about:message") {
-  * {
-    outline: 0.5px dashed rgba(255, 0, 0, 0.1) !important;
+  /* Container die oft dunkel sind */
+  .wrapper,
+  .container,
+  .email-container,
+  .content,
+  .main-content {
+    background: var(--w95-window) !important;
+  }
+
+  /* Header und Footer Bereiche */
+  .header,
+  .footer,
+  .email-header,
+  .email-footer {
+    background: var(--w95-face) !important;
+    color: var(--w95-black) !important;
+  }
+
+  /* Call-to-Action Buttons */
+  .cta,
+  .button,
+  .btn,
+  .call-to-action {
+    background: var(--w95-btn-face) !important;
+    color: var(--w95-black) !important;
+    border-top: 2px solid #ffffff !important;
+    border-left: 2px solid #ffffff !important;
+    border-bottom: 2px solid #000000 !important;
+    border-right: 2px solid #000000 !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    text-decoration: none !important;
+  }
+
+  .cta:hover,
+  .button:hover,
+  .btn:hover {
+    background: #bfbbb3 !important;
   }
 }
-*/
 
 /* ========================================================== */

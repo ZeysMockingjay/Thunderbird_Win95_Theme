@@ -17,11 +17,23 @@
   font-display: swap;
 }
 
-/* Global Font */
+/* Global Font - VERBESSERTE LESBARKEIT */
 * {
   font-family: "W95", "MS Sans Serif", "Tahoma", sans-serif !important;
-  font-size: 11px !important;
+  font-size: 12px !important;
   -moz-font-smoothing: none !important;
+  -webkit-font-smoothing: none !important;
+}
+
+/* Wichtige Texte größer */
+.tabmail-tab,
+tab,
+treecol,
+button,
+toolbarbutton,
+menuitem,
+menu {
+  font-size: 12px !important;
 }
 
 /* -----------------------------
@@ -40,6 +52,8 @@
   --w95-window:    #ffffff !important;
   --w95-desktop:   #008080 !important; /* türkis */
   --w95-teal-light:#1ca7a7 !important; /* heller türkis */
+  --w95-btn-face:  #c0c0c0 !important; /* standard button face */
+  --w95-btn-text:  #000000 !important; /* button text */
 }
 
 /* Entferne alle modernen Effekte */
@@ -52,34 +66,52 @@
 }
 
 /* -----------------------------
-   Haupt-Fenster
+   ALLE WEISSEN HINTERGRÜNDE ZU BEIGE
    ----------------------------- */
 #messengerWindow,
 #messengerWindow > *,
 #mailContent,
 #messengerBody,
 body,
-html {
+html,
+window,
+page,
+dialog,
+wizard,
+#navigation-toolbox,
+#tabs-toolbar,
+#TabsToolbar,
+.themeable-full,
+.themeable-brighttext {
   background: var(--w95-face) !important;
   background-color: var(--w95-face) !important;
   color: var(--w95-black) !important;
 }
 
-/* -----------------------------
-   Title Bar - Türkis Gradient
-   ----------------------------- */
-.titlebar-buttonbox-container,
-.titlebar-buttonbox {
-  display: flex !important;
-  align-items: center !important;
+/* Content Bereiche die weiß bleiben sollen */
+#folderTree,
+#messagepane,
+browser[type="content"],
+textbox,
+input,
+textarea {
+  background: var(--w95-window) !important;
+  background-color: var(--w95-window) !important;
 }
 
-/* Window Control Buttons */
-.titlebar-button,
-.titlebar-min,
-.titlebar-max,
-.titlebar-restore,
-.titlebar-close {
+/* -----------------------------
+   Title Bar - NUR 3 BUTTONS WIE WINDOWS 11
+   ----------------------------- */
+.titlebar-buttonbox-container {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: flex-end !important;
+  height: 22px !important;
+  padding: 0 2px !important;
+}
+
+/* WICHTIG: Verstecke doppelte Buttons */
+.titlebar-button {
   -moz-appearance: none !important;
   appearance: none !important;
   background: var(--w95-face) !important;
@@ -88,24 +120,84 @@ html {
   border-left: 1px solid var(--w95-light) !important;
   border-bottom: 1px solid var(--w95-dkshadow) !important;
   border-right: 1px solid var(--w95-dkshadow) !important;
-  width: 16px !important;
-  height: 14px !important;
-  min-width: 16px !important;
-  min-height: 14px !important;
-  margin: 2px 1px !important;
+  width: 20px !important;
+  height: 18px !important;
+  min-width: 20px !important;
+  min-height: 18px !important;
+  max-width: 20px !important;
+  max-height: 18px !important;
+  margin: 0 1px !important;
   padding: 0 !important;
   font-family: "Courier New", monospace !important;
-  font-size: 10px !important;
+  font-size: 12px !important;
   font-weight: bold !important;
-  line-height: 13px !important;
+  line-height: 18px !important;
   text-align: center !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
 }
 
-/* Unicode Symbole */
-.titlebar-min::before { content: "−" !important; display: block !important; }
-.titlebar-max::before { content: "□" !important; display: block !important; }
-.titlebar-restore::before { content: "❐" !important; display: block !important; }
-.titlebar-close::before { content: "×" !important; display: block !important; font-size: 13px !important; }
+/* Verstecke zusätzliche/doppelte Instanzen */
+.titlebar-button > * {
+  display: none !important;
+}
+
+.titlebar-button > image,
+.titlebar-button > .toolbarbutton-icon {
+  display: none !important;
+}
+
+/* WICHTIG: Restore-Button komplett verstecken */
+.titlebar-restore,
+.titlebar-button[type="restore"],
+button.titlebar-restore,
+toolbarbutton.titlebar-restore {
+  display: none !important;
+  visibility: hidden !important;
+  width: 0 !important;
+  height: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  opacity: 0 !important;
+}
+
+/* Maximize Button funktioniert wie Windows 11 - wechselt automatisch */
+#messengerWindow[sizemode="maximized"] .titlebar-max,
+#messengerWindow[sizemode="maximized"] .titlebar-button[type="maximize"] {
+  /* Button bleibt sichtbar und funktional */
+  display: flex !important;
+}
+
+/* Symbole per CSS */
+.titlebar-min::before,
+.titlebar-button[type="minimize"]::before { 
+  content: "−" !important; 
+  display: block !important;
+  color: var(--w95-black) !important;
+}
+
+/* WICHTIG: Nur EIN Button für Maximize/Restore */
+.titlebar-max::before,
+.titlebar-button[type="maximize"]::before { 
+  content: "□" !important; 
+  display: block !important;
+  color: var(--w95-black) !important;
+}
+
+/* Wenn maximiert, zeige Restore-Symbol auf dem Maximize-Button */
+#messengerWindow[sizemode="maximized"] .titlebar-max::before,
+#messengerWindow[sizemode="maximized"] .titlebar-button[type="maximize"]::before {
+  content: "❐" !important;
+}
+
+.titlebar-close::before,
+.titlebar-button[type="close"]::before { 
+  content: "×" !important; 
+  display: block !important;
+  color: var(--w95-black) !important;
+  font-size: 16px !important; 
+}
 
 .titlebar-button:hover {
   background: var(--w95-face-dark) !important;
@@ -122,18 +214,107 @@ html {
 .titlebar,
 #titlebar,
 #titlebar-content,
-#messengerWindow[tabsintitlebar] #titlebar {
+#messengerWindow[tabsintitlebar] #titlebar,
+.titlebar-content {
   background: linear-gradient(90deg, var(--w95-desktop), var(--w95-teal-light)) !important;
   color: white !important;
-  min-height: 18px !important;
+  min-height: 22px !important;
   padding: 1px 2px !important;
   border: none !important;
 }
 
-.titlebar-title {
+.titlebar-title,
+#titlebar-title {
   color: white !important;
   font-weight: bold !important;
+  font-size: 12px !important;
+  margin: 0 4px !important;
+}
+
+/* -----------------------------
+   Navigation Bar (Tabs)
+   ----------------------------- */
+#tabmail-tabs,
+#tabmail-arrowscrollbox,
+.tabmail-arrowscrollbox,
+#tabbar-toolbar,
+.tabbar-toolbar {
+  background: var(--w95-face) !important;
+  border-bottom: 1px solid var(--w95-shadow) !important;
+  padding: 2px 0 0 2px !important;
+}
+
+.tabmail-tab,
+tab,
+.tabbrowser-tab {
+  -moz-appearance: none !important;
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 4px 8px !important;
+  margin: 0 2px 0 0 !important;
+  font-size: 12px !important;
+}
+
+.tabmail-tab:hover,
+tab:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+.tabmail-tab[selected="true"],
+tab[selected="true"],
+.tabbrowser-tab[selected="true"] {
+  background: var(--w95-face) !important;
+  border-bottom: 2px solid var(--w95-face) !important;
+  margin-bottom: -1px !important;
+  padding-bottom: 5px !important;
+  z-index: 10 !important;
+}
+
+/* Tab Close Button */
+.tab-close-button {
+  -moz-appearance: none !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px !important;
+  min-height: 16px !important;
+  max-width: 16px !important;
+  max-height: 16px !important;
+  padding: 0 !important;
+  margin-left: 6px !important;
+  background: var(--w95-face) !important;
+  border-top: 1px solid var(--w95-light) !important;
+  border-left: 1px solid var(--w95-light) !important;
+  border-bottom: 1px solid var(--w95-dkshadow) !important;
+  border-right: 1px solid var(--w95-dkshadow) !important;
   font-size: 11px !important;
+  line-height: 16px !important;
+  text-align: center !important;
+}
+
+.tab-close-button > * {
+  display: none !important;
+}
+
+.tab-close-button::before {
+  content: "×" !important;
+  display: block !important;
+  color: var(--w95-black) !important;
+  font-size: 13px !important;
+}
+
+.tab-close-button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+.tab-close-button:active {
+  border-top: 1px solid var(--w95-dkshadow) !important;
+  border-left: 1px solid var(--w95-dkshadow) !important;
+  border-bottom: 1px solid var(--w95-light) !important;
+  border-right: 1px solid var(--w95-light) !important;
 }
 
 /* -----------------------------
@@ -141,20 +322,22 @@ html {
    ----------------------------- */
 #toolbar-menubar,
 menubar,
-#mail-menubar {
+#mail-menubar,
+.menubar-items {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
   border: none !important;
-  padding: 1px !important;
-  min-height: 20px !important;
+  padding: 2px !important;
+  min-height: 22px !important;
 }
 
 menu,
 menuitem {
   background: transparent !important;
   color: var(--w95-black) !important;
-  padding: 2px 16px 2px 4px !important;
+  padding: 3px 20px 3px 6px !important;
   margin: 0 !important;
+  font-size: 12px !important;
 }
 
 menu:hover,
@@ -165,7 +348,8 @@ menuitem[_moz-menuactive="true"] {
   color: var(--w95-hilitext) !important;
 }
 
-menupopup {
+menupopup,
+.menupopup-arrowscrollbox {
   background: var(--w95-face) !important;
   border-top: 2px solid var(--w95-light) !important;
   border-left: 2px solid var(--w95-light) !important;
@@ -177,7 +361,7 @@ menupopup {
 menuseparator {
   background: var(--w95-shadow) !important;
   height: 1px !important;
-  margin: 2px 0 !important;
+  margin: 3px 2px !important;
   border: none !important;
 }
 
@@ -189,17 +373,19 @@ toolbar,
 #mail-bar3,
 .toolbar,
 #navigation-toolbox,
-#compose-toolbox {
+#compose-toolbox,
+.toolbar-primary,
+.toolbar-non-primary {
   -moz-appearance: none !important;
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
   border: none !important;
   border-bottom: 1px solid var(--w95-shadow) !important;
-  min-height: 26px !important;
-  padding: 2px !important;
+  min-height: 28px !important;
+  padding: 3px !important;
 }
 
-/* Toolbar Buttons */
+/* Toolbar Buttons - ALLE HOVERS UND STATES */
 toolbarbutton,
 .toolbarbutton-1,
 #button-getmail,
@@ -210,22 +396,39 @@ toolbarbutton,
 #button-delete,
 #button-junk,
 #button-print,
-#button-stop {
+#button-stop,
+#qfb-qs-textbox,
+.toolbarbutton-menubutton-button,
+.toolbarbutton-menubutton-dropmarker {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 2px 4px !important;
-  margin: 1px !important;
-  min-height: 20px !important;
+  background: var(--w95-btn-face) !important;
+  color: var(--w95-btn-text) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 3px 8px !important;
+  margin: 2px !important;
+  min-height: 24px !important;
+  font-size: 12px !important;
 }
 
 toolbarbutton:hover,
-.toolbarbutton-1:hover {
+.toolbarbutton-1:hover,
+#button-getmail:hover,
+#button-newmsg:hover,
+#button-reply:hover,
+#button-replyall:hover,
+#button-forward:hover,
+#button-delete:hover,
+#button-junk:hover,
+#button-print:hover,
+#button-stop:hover {
   background: var(--w95-face-dark) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
 }
 
 toolbarbutton:active,
@@ -234,88 +437,102 @@ toolbarbutton[checked="true"],
 .toolbarbutton-1[checked="true"],
 toolbarbutton[open="true"],
 .toolbarbutton-1[open="true"] {
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 3px 3px 1px 5px !important;
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 4px 7px 2px 9px !important;
 }
 
-/* Toolbar Icons */
 .toolbarbutton-icon {
   width: 16px !important;
   height: 16px !important;
-  margin: 0 !important;
+  margin: 0 4px 0 0 !important;
 }
 
 /* -----------------------------
-   Tabs
+   Spaces Toolbar (Email, Adressbuch, Kalender etc.) - LINKS
    ----------------------------- */
-.tabmail-tabs,
-#tabmail-tabs,
-.tab-background-start,
-.tab-background-end,
-.tab-background-middle {
+#spacesToolbar,
+#spaces-toolbar,
+.spaces-toolbar {
   background: var(--w95-face) !important;
-  border: none !important;
-  padding: 0 !important;
-  min-height: 24px !important;
+  border-right: 2px solid var(--w95-shadow) !important;
+  padding: 2px !important;
+  min-width: 48px !important;
+  max-width: 48px !important;
 }
 
-.tabmail-tab,
-tab,
-.tabbrowser-tab {
+/* Spaces Toolbar Buttons */
+.spaces-toolbar-button,
+#spacesToolbar .toolbarbutton-1,
+#spaces-toolbar button {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
+  background: var(--w95-btn-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 3px 8px !important;
-  margin: 2px 1px -1px 0 !important;
-}
-
-.tabmail-tab[selected="true"],
-tab[selected="true"],
-.tabbrowser-tab[selected="true"] {
-  background: var(--w95-face) !important;
-  border-bottom: 1px solid var(--w95-face) !important;
-  margin-bottom: 0 !important;
-  padding-bottom: 4px !important;
-  z-index: 10 !important;
-}
-
-.tab-label,
-.tab-text {
-  color: var(--w95-black) !important;
-  font-weight: normal !important;
-}
-
-.tab-close-button {
-  appearance: none !important;
-  -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  border: 1px solid var(--w95-black) !important;
-  width: 13px !important;
-  height: 13px !important;
-  min-width: 13px !important;
-  min-height: 13px !important;
-  padding: 0 !important;
-  margin-left: 4px !important;
-  font-size: 9px !important;
-  line-height: 11px !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 8px !important;
+  margin: 4px 2px !important;
+  min-height: 40px !important;
+  min-width: 40px !important;
+  font-size: 11px !important;
   text-align: center !important;
 }
 
-.tab-close-button::before {
-  content: "×" !important;
-  display: block !important;
-  color: var(--w95-black) !important;
+.spaces-toolbar-button:hover,
+#spacesToolbar .toolbarbutton-1:hover {
+  background: var(--w95-face-dark) !important;
 }
 
-.tab-close-button:hover {
-  background: var(--w95-shadow) !important;
+.spaces-toolbar-button:active,
+.spaces-toolbar-button[checked="true"],
+.spaces-toolbar-button[selected="true"],
+#spacesToolbar .toolbarbutton-1:active,
+#spacesToolbar .toolbarbutton-1[checked="true"] {
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 9px 7px 7px 9px !important;
+}
+
+/* Spaces Toolbar Icons */
+.spaces-toolbar-button .toolbarbutton-icon,
+#spacesToolbar .toolbarbutton-icon {
+  width: 20px !important;
+  height: 20px !important;
+  margin: 0 !important;
+}
+
+/* Spaces Toolbar Pinned Button */
+#spacesPinnedButton,
+.spaces-pinned-button {
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  margin: 4px 2px !important;
+  padding: 4px !important;
+}
+
+#spacesPinnedButton:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+/* Spaces Popup */
+#spacesPopup {
+  background: var(--w95-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 2px !important;
 }
 
 /* -----------------------------
@@ -327,33 +544,52 @@ tab[selected="true"],
 .tree-container {
   background: var(--w95-window) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 2px !important;
 }
 
-/* Folder Pane Header */
 #folderPaneHeader,
 #folderPaneHeaderBar {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
   border-bottom: 1px solid var(--w95-shadow) !important;
-  padding: 2px 4px !important;
+  padding: 3px 4px !important;
+  font-size: 12px !important;
 }
 
-/* Folder Pane Button */
+/* WICHTIG: Thread Tree Container beige */
+#threadTree .tree-container {
+  background: var(--w95-face) !important;
+}
+
 #folderPaneHeaderButton,
 #folderPaneMore {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
+  background: var(--w95-btn-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 2px 6px !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 2px 8px !important;
   margin: 0 2px !important;
+  font-size: 12px !important;
+}
+
+#folderPaneHeaderButton:hover,
+#folderPaneMore:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+#folderPaneHeaderButton:active,
+#folderPaneMore:active {
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
 }
 
 /* Tree Rows */
@@ -361,11 +597,13 @@ treechildren::-moz-tree-row {
   background: var(--w95-window) !important;
   color: var(--w95-black) !important;
   border: none !important;
-  height: 17px !important;
+  height: 20px !important;
+  padding: 2px 0 !important;
 }
 
 treechildren::-moz-tree-row(selected) {
   background: var(--w95-hilite) !important;
+  color: var(--w95-hilitext) !important;
 }
 
 treechildren::-moz-tree-row(hover) {
@@ -374,77 +612,81 @@ treechildren::-moz-tree-row(hover) {
 
 treechildren::-moz-tree-cell-text {
   color: var(--w95-black) !important;
-  padding-left: 2px !important;
+  padding-left: 4px !important;
+  font-size: 12px !important;
 }
 
 treechildren::-moz-tree-cell-text(selected) {
   color: var(--w95-hilitext) !important;
 }
 
-/* Tree Icons */
 treechildren::-moz-tree-image {
   width: 16px !important;
   height: 16px !important;
-  margin-right: 2px !important;
+  margin-right: 4px !important;
 }
 
-/* Tree Indentation */
 treechildren::-moz-tree-indentation {
-  width: 12px !important;
+  width: 14px !important;
 }
 
-/* Tree Twisty (Expand/Collapse) */
 treechildren::-moz-tree-twisty {
-  width: 12px !important;
-  padding-right: 2px !important;
+  width: 14px !important;
+  padding-right: 4px !important;
 }
 
 /* Tree Column Headers */
 treecol,
 .treecol-sortdirection {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
+  background: var(--w95-btn-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-shadow) !important;
-  padding: 3px 4px !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-shadow) !important;
+  padding: 4px 6px !important;
   margin: 0 !important;
+  font-size: 12px !important;
 }
 
 treecol:hover {
   background: var(--w95-face-dark) !important;
 }
 
-/* Tree Column Separator */
-treecol splitter,
-treecol separator {
-  background: var(--w95-shadow) !important;
-  width: 1px !important;
+treecol:active {
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
 }
 
 /* -----------------------------
-   Thread Pane (Message List)
+   Thread Pane (Message List) - BEIGE HINTERGRUND
    ----------------------------- */
 #threadTree,
 #threadPane {
-  background: var(--w95-window) !important;
+  background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
 }
 
 #threadTree treechildren::-moz-tree-row {
-  background: var(--w95-window) !important;
+  background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  height: 17px !important;
+  height: 20px !important;
 }
 
 #threadTree treechildren::-moz-tree-row(selected) {
   background: var(--w95-hilite) !important;
+  color: var(--w95-hilitext) !important;
+}
+
+#threadTree treechildren::-moz-tree-row(hover) {
+  background: var(--w95-face-dark) !important;
 }
 
 #threadTree treechildren::-moz-tree-row(unread) {
@@ -453,6 +695,7 @@ treecol separator {
 
 #threadTree treechildren::-moz-tree-cell-text {
   color: var(--w95-black) !important;
+  font-size: 12px !important;
 }
 
 #threadTree treechildren::-moz-tree-cell-text(selected) {
@@ -463,6 +706,36 @@ treecol separator {
   font-weight: bold !important;
 }
 
+/* Zusätzliche Thread Tree Elemente - ALLE auf beige */
+#threadTree > * {
+  background: var(--w95-face) !important;
+}
+
+#threadPane > * {
+  background: var(--w95-face) !important;
+}
+
+treechildren {
+  background: var(--w95-face) !important;
+}
+
+/* Tree Body speziell für Thread Tree */
+#threadTree treechildren::-moz-tree-row(odd),
+#threadTree treechildren::-moz-tree-row(even) {
+  background: var(--w95-face) !important;
+}
+
+/* Alle Tree Cells im Thread Tree */
+#threadTree treechildren::-moz-tree-cell {
+  background: var(--w95-face) !important;
+}
+
+/* Thread Pane Spezifische Container */
+#threadPaneBox,
+#threadContentArea {
+  background: var(--w95-face) !important;
+}
+
 /* -----------------------------
    Message Pane
    ----------------------------- */
@@ -470,33 +743,48 @@ treecol separator {
 #messagePane,
 #messagepanebox,
 .message-container,
-browser[type="content"] {
+browser[type="content"],
+browser[type="content-primary"] {
   background: var(--w95-window) !important;
   background-color: var(--w95-window) !important;
 }
 
-/* Message Header */
 #msgHeaderView,
 #expandedHeaderView,
-.message-header {
+.message-header,
+#messageHeader {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  border-bottom: 1px solid var(--w95-shadow) !important;
-  padding: 4px !important;
+  border-bottom: 2px solid var(--w95-shadow) !important;
+  padding: 6px !important;
 }
 
-/* Message Header Buttons */
 #msgHeaderView button,
-#expandedHeaderView button {
+#expandedHeaderView button,
+.message-header button {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
+  background: var(--w95-btn-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 2px 6px !important;
-  margin: 1px !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 3px 8px !important;
+  margin: 2px !important;
+  font-size: 12px !important;
+}
+
+#msgHeaderView button:hover,
+#expandedHeaderView button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+#msgHeaderView button:active,
+#expandedHeaderView button:active {
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
 }
 
 /* -----------------------------
@@ -507,57 +795,14 @@ splitter,
 #threadpane-splitter,
 #messagepane-splitter {
   background: var(--w95-face) !important;
-  border: 1px outset var(--w95-face) !important;
-  min-width: 5px !important;
-  min-height: 5px !important;
+  border: 2px outset var(--w95-face) !important;
+  min-width: 6px !important;
+  min-height: 6px !important;
   cursor: ew-resize !important;
 }
 
 splitter[orient="horizontal"] {
   cursor: ns-resize !important;
-}
-
-/* Splitter Grippy */
-grippy {
-  background: var(--w95-face) !important;
-}
-
-/* -----------------------------
-   Compose Window
-   ----------------------------- */
-#compose-toolbox,
-#MsgHeadersToolbar,
-#FormatToolbar {
-  background: var(--w95-face) !important;
-  color: var(--w95-black) !important;
-  border-bottom: 1px solid var(--w95-shadow) !important;
-}
-
-#addresses-box,
-#identityLabel,
-#msgIdentity,
-#msgSubject {
-  background: var(--w95-window) !important;
-  color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-}
-
-/* Compose Editor */
-#content-frame,
-#messageEditor,
-#appcontent {
-  background: var(--w95-window) !important;
-  color: var(--w95-black) !important;
-}
-
-/* Address Book Window */
-#addressbookWindow,
-#abResultsTree {
-  background: var(--w95-face) !important;
-  color: var(--w95-black) !important;
 }
 
 /* -----------------------------
@@ -568,103 +813,108 @@ textarea,
 textbox,
 html|input,
 html|textarea,
-.textbox-input {
+.textbox-input,
+search-textbox {
   -moz-appearance: none !important;
   background: var(--w95-window) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 2px 3px !important;
-  font-size: 11px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 3px 4px !important;
+  font-size: 12px !important;
 }
 
 input:focus,
 textarea:focus,
 textbox:focus {
   outline: 1px dotted var(--w95-black) !important;
-  outline-offset: -2px !important;
+  outline-offset: -3px !important;
 }
 
 /* -----------------------------
-   Buttons
+   Buttons - ALLE STATES
    ----------------------------- */
 button,
 html|button,
-.button {
+.button,
+.dialog-button {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 3px 10px !important;
-  min-height: 21px !important;
-  font-size: 11px !important;
+  background: var(--w95-btn-face) !important;
+  color: var(--w95-btn-text) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 4px 12px !important;
+  min-height: 24px !important;
+  font-size: 12px !important;
+  margin: 2px !important;
 }
 
 button:hover,
-html|button:hover {
+html|button:hover,
+.button:hover {
   background: var(--w95-face-dark) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
 }
 
 button:active,
 html|button:active,
-button[default="true"],
-button[type="submit"] {
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 4px 9px 2px 11px !important;
+.button:active,
+button[checked="true"],
+button[open="true"] {
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 5px 11px 3px 13px !important;
 }
 
-/* Default Button */
-button[default="true"]::before {
-  content: "" !important;
-  position: absolute !important;
-  top: -3px !important;
-  left: -3px !important;
-  right: -3px !important;
-  bottom: -3px !important;
-  border: 1px dotted var(--w95-black) !important;
+button[default="true"] {
+  border: 3px solid var(--w95-black) !important;
+  padding: 3px 11px !important;
 }
 
 /* -----------------------------
    Checkboxes & Radio Buttons
    ----------------------------- */
 checkbox,
-radio {
-  -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  margin: 2px !important;
-  padding: 1px !important;
-}
-
-checkbox > .checkbox-check,
-radio > .radio-check {
+radio,
+html|input[type="checkbox"],
+html|input[type="radio"] {
   -moz-appearance: none !important;
   background: var(--w95-window) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  width: 13px !important;
-  height: 13px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  width: 14px !important;
+  height: 14px !important;
+  margin: 2px 4px 2px 2px !important;
+  padding: 0 !important;
 }
 
-checkbox[checked="true"] > .checkbox-check::before {
+checkbox[checked="true"]::before,
+html|input[type="checkbox"]:checked::before {
   content: "✓" !important;
   color: var(--w95-black) !important;
   font-size: 12px !important;
   font-weight: bold !important;
+  display: block !important;
+  text-align: center !important;
+  line-height: 14px !important;
 }
 
-radio[selected="true"] > .radio-check {
+radio[selected="true"],
+html|input[type="radio"]:checked {
   background: var(--w95-black) !important;
-  border: 3px solid var(--w95-window) !important;
+  border: 4px solid var(--w95-window) !important;
 }
 
 /* -----------------------------
@@ -676,18 +926,22 @@ menulist,
   -moz-appearance: none !important;
   background: var(--w95-window) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 2px 18px 2px 3px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 3px 24px 3px 4px !important;
+  font-size: 12px !important;
 }
 
-/* Dropdown Arrow Button */
+menulist:hover {
+  background: var(--w95-face-dark) !important;
+}
+
 .menulist-dropmarker {
-  background: var(--w95-face) !important;
-  border-left: 1px solid var(--w95-shadow) !important;
-  padding: 0 4px !important;
+  background: var(--w95-btn-face) !important;
+  border-left: 2px solid var(--w95-shadow) !important;
+  padding: 0 6px !important;
 }
 
 /* -----------------------------
@@ -699,56 +953,74 @@ scrollbar {
 }
 
 scrollbar[orient="vertical"] {
-  width: 16px !important;
+  width: 18px !important;
 }
 
 scrollbar[orient="horizontal"] {
-  height: 16px !important;
+  height: 18px !important;
 }
 
 thumb {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+}
+
+thumb:hover {
+  background: var(--w95-face-dark) !important;
 }
 
 scrollbarbutton {
   -moz-appearance: none !important;
-  background: var(--w95-face) !important;
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  width: 16px !important;
-  height: 16px !important;
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  width: 18px !important;
+  height: 18px !important;
 }
 
 scrollbarbutton:hover {
   background: var(--w95-face-dark) !important;
 }
 
-/* Scrollbar Arrows */
+scrollbarbutton:active {
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+}
+
 scrollbarbutton[type="increment"][orient="vertical"]::before {
   content: "▼" !important;
-  font-size: 8px !important;
+  font-size: 9px !important;
+  display: block !important;
+  text-align: center !important;
 }
 
 scrollbarbutton[type="decrement"][orient="vertical"]::before {
   content: "▲" !important;
-  font-size: 8px !important;
+  font-size: 9px !important;
+  display: block !important;
+  text-align: center !important;
 }
 
 scrollbarbutton[type="increment"][orient="horizontal"]::before {
   content: "▶" !important;
-  font-size: 8px !important;
+  font-size: 9px !important;
+  display: block !important;
+  text-align: center !important;
 }
 
 scrollbarbutton[type="decrement"][orient="horizontal"]::before {
   content: "◀" !important;
-  font-size: 8px !important;
+  font-size: 9px !important;
+  display: block !important;
+  text-align: center !important;
 }
 
 /* -----------------------------
@@ -759,18 +1031,19 @@ statusbar,
 .statusbar {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-shadow) !important;
-  min-height: 18px !important;
-  padding: 2px 4px !important;
+  border-top: 2px solid var(--w95-shadow) !important;
+  min-height: 22px !important;
+  padding: 3px 4px !important;
+  font-size: 12px !important;
 }
 
 statusbarpanel {
   background: var(--w95-face) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 2px 6px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 2px 8px !important;
   margin: 0 2px !important;
 }
 
@@ -780,21 +1053,42 @@ statusbarpanel {
 #searchInput,
 .search-box,
 #quick-filter-bar,
-#qfb-show-filter-bar {
+#qfb-show-filter-bar,
+#qfb-qs-textbox {
   background: var(--w95-window) !important;
   color: var(--w95-black) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  padding: 2px 4px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  padding: 3px 4px !important;
+  font-size: 12px !important;
 }
 
-/* Quick Filter Bar */
 #quick-filter-bar {
   background: var(--w95-face) !important;
-  border-bottom: 1px solid var(--w95-shadow) !important;
+  border-bottom: 2px solid var(--w95-shadow) !important;
   padding: 4px !important;
+}
+
+#quick-filter-bar button {
+  background: var(--w95-btn-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+}
+
+#quick-filter-bar button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+#quick-filter-bar button:active,
+#quick-filter-bar button[checked="true"] {
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
 }
 
 /* -----------------------------
@@ -802,7 +1096,8 @@ statusbarpanel {
    ----------------------------- */
 dialog,
 .dialog,
-window[type="dialog"] {
+window[type="dialog"],
+.dialogBox {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
   border-top: 2px solid var(--w95-light) !important;
@@ -811,16 +1106,14 @@ window[type="dialog"] {
   border-right: 2px solid var(--w95-dkshadow) !important;
 }
 
-/* Dialog Buttons */
-.dialog-button-box,
-.dialog-button-box > button {
+.dialog-button-box {
   background: var(--w95-face) !important;
+  padding: 6px !important;
 }
 
 /* -----------------------------
    Context Menus
    ----------------------------- */
-menupopup,
 panel,
 .panel-arrowcontent {
   background: var(--w95-face) !important;
@@ -831,7 +1124,6 @@ panel,
   border-right: 2px solid var(--w95-dkshadow) !important;
 }
 
-/* Panel Arrow */
 .panel-arrowbox {
   display: none !important;
 }
@@ -839,13 +1131,14 @@ panel,
 /* -----------------------------
    Tooltips
    ----------------------------- */
-tooltip {
+tooltip,
+.tooltip {
   -moz-appearance: none !important;
-  background: #ffffe1 !important; /* classic light yellow */
+  background: #ffffe1 !important;
   color: var(--w95-black) !important;
   border: 1px solid var(--w95-black) !important;
-  padding: 3px 6px !important;
-  font-size: 11px !important;
+  padding: 4px 8px !important;
+  font-size: 12px !important;
 }
 
 /* -----------------------------
@@ -856,24 +1149,26 @@ notification,
 .messageCloseButton {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  border: 1px solid var(--w95-shadow) !important;
+  border: 2px solid var(--w95-shadow) !important;
 }
 
 /* -----------------------------
    Progress Bars
    ----------------------------- */
 progressmeter,
-.progress-bar {
+.progress-bar,
+progress {
   -moz-appearance: none !important;
   background: var(--w95-window) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
-  height: 16px !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  height: 20px !important;
 }
 
-.progress-bar > .progress-remainder {
+.progress-bar > .progress-remainder,
+progressmeter > .progress-bar {
   background: var(--w95-hilite) !important;
 }
 
@@ -881,7 +1176,9 @@ progressmeter,
    Disabled State
    ----------------------------- */
 *[disabled="true"],
-*[disabled] {
+*[disabled],
+button:disabled,
+toolbarbutton[disabled="true"] {
   color: var(--w95-graytext) !important;
   text-shadow: 1px 1px 0 var(--w95-light) !important;
 }
@@ -891,49 +1188,147 @@ progressmeter,
    ----------------------------- */
 #preferencesContainer,
 .pane-container,
-prefpane {
+prefpane,
+#MailPreferences,
+#paneDeck {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
 }
 
-/* Category List */
 #categories {
   background: var(--w95-window) !important;
-  border-top: 1px solid var(--w95-dkshadow) !important;
-  border-left: 1px solid var(--w95-dkshadow) !important;
-  border-bottom: 1px solid var(--w95-light) !important;
-  border-right: 1px solid var(--w95-light) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+}
+
+.category {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  padding: 6px 8px !important;
+  font-size: 12px !important;
+}
+
+.category:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+.category[selected="true"] {
+  background: var(--w95-hilite) !important;
+  color: var(--w95-hilitext) !important;
 }
 
 /* Group Boxes */
 groupbox,
 .groupbox {
-  border-top: 1px solid var(--w95-light) !important;
-  border-left: 1px solid var(--w95-light) !important;
-  border-bottom: 1px solid var(--w95-dkshadow) !important;
-  border-right: 1px solid var(--w95-dkshadow) !important;
-  padding: 6px !important;
-  margin: 4px !important;
+  background: var(--w95-face) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  padding: 8px !important;
+  margin: 6px !important;
 }
 
 caption,
 .groupbox-caption {
   background: var(--w95-face) !important;
   color: var(--w95-black) !important;
-  padding: 0 4px !important;
-  margin: -10px 6px 0 6px !important;
+  padding: 0 6px !important;
+  margin: -12px 8px 0 8px !important;
+  font-size: 12px !important;
 }
 
 /* -----------------------------
-   Remove Unwanted Modern Elements
+   Compose Window
    ----------------------------- */
-.sidebar-splitter,
-#folderPaneSplitter,
-#threadpane-splitter {
-  -moz-appearance: none !important;
+#compose-toolbox,
+#MsgHeadersToolbar,
+#FormatToolbar {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+  border-bottom: 2px solid var(--w95-shadow) !important;
 }
 
-/* Remove backgrounds */
+#addresses-box,
+#identityLabel,
+#msgIdentity,
+#msgSubject {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+  border-top: 2px solid var(--w95-dkshadow) !important;
+  border-left: 2px solid var(--w95-dkshadow) !important;
+  border-bottom: 2px solid var(--w95-light) !important;
+  border-right: 2px solid var(--w95-light) !important;
+  font-size: 12px !important;
+}
+
+#content-frame,
+#messageEditor,
+#appcontent {
+  background: var(--w95-window) !important;
+  color: var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Address Book
+   ----------------------------- */
+#addressbookWindow,
+#abResultsTree,
+#CardViewBox {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Calendar
+   ----------------------------- */
+#calendar-view,
+#calendar-list,
+#unifinder-search-field {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+/* -----------------------------
+   Drag-and-Drop
+   ----------------------------- */
+treechildren::-moz-tree-drop-feedback {
+  background: var(--w95-hilite) !important;
+}
+
+/* -----------------------------
+   Add-on Manager
+   ----------------------------- */
+#addon-list,
+#addon-view,
+#addon-detail,
+.addon-card {
+  background: var(--w95-face) !important;
+  color: var(--w95-black) !important;
+}
+
+.addon-install-button,
+.addon-uninstall-button,
+.addon-card button {
+  -moz-appearance: none !important;
+  background: var(--w95-btn-face) !important;
+  color: var(--w95-black) !important;
+  border-top: 2px solid var(--w95-light) !important;
+  border-left: 2px solid var(--w95-light) !important;
+  border-bottom: 2px solid var(--w95-dkshadow) !important;
+  border-right: 2px solid var(--w95-dkshadow) !important;
+  font-size: 12px !important;
+}
+
+.addon-card button:hover {
+  background: var(--w95-face-dark) !important;
+}
+
+/* -----------------------------
+   Zusätzliche Fixes
+   ----------------------------- */
 vbox,
 hbox,
 box,
@@ -942,16 +1337,23 @@ stack {
   background: transparent !important;
 }
 
-/* Force content areas */
+/* Entferne ungewollte Fokus-Ringe */
+:focus:not(input):not(textarea):not(textbox) {
+  outline: none !important;
+}
+
+/* Mail Tab Browser */
 #mail3PaneTab browser,
 #mail3PaneTab > *,
 .contentTabInstance {
-  background: var(--w95-face) !important;
+  background: var(--w95-window) !important;
 }
 
-/* Remove focus rings on non-inputs */
-:focus:not(input):not(textarea):not(textbox) {
-  outline: none !important;
+/* Sidebar Splitter */
+.sidebar-splitter,
+#folderPaneSplitter,
+#threadpane-splitter {
+  -moz-appearance: none !important;
 }
 
 /* ========================================================== */
